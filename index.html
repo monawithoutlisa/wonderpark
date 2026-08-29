@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Idea Wonderpark — Anonymous Public Demo</title>
-<meta name="description" content="An anonymous interactive portfolio demo about products, research, making, visual experiments and regional perspectives." />
+<title>嬌蠻公主的人生遊樂園</title>
+<meta name="description" content="驕蠻公主李時珍的純情駙馬：一座關於人生轉折、品牌項目、世界座標、AI 創作與失敗後成長的互動遊樂園。" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Idea Wonderpark — Anonymous Public Demo" />
+<meta property="og:title" content="嬌蠻公主的人生遊樂園" />
 <meta property="og:description" content="An explorable, identity-free portfolio of products, research, learning and visual studies." />
 <meta property="og:image" content="assets/projects/anonymous-project-cover.png" />
 <meta name="theme-color" content="#2c3f34" />
@@ -484,7 +484,7 @@
   }
   #intro.gone{opacity:0;pointer-events:none;}
   .admit{
-    width:min(330px,84vw);background:var(--paper);
+    width:min(620px,90vw);max-height:88dvh;overflow:auto;background:var(--paper);
     border:1px solid rgba(42,37,32,.4);border-radius:2px;
     box-shadow:0 40px 90px -30px rgba(0,0,0,.85);
     padding:26px 28px 22px;text-align:center;position:relative;
@@ -504,8 +504,28 @@
     line-height:1.04;margin:12px 0 6px;letter-spacing:.005em;
   }
   .admit .tag{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);}
+  .admit .intro-copy{
+    margin:18px auto 6px;max-width:540px;white-space:pre-line;text-align:left;
+    font-family:var(--display);font-size:clamp(14px,2vw,17px);line-height:1.65;color:var(--ink);
+  }
+  .route-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px;}
+  .route-choice{
+    appearance:none;cursor:pointer;min-height:72px;padding:11px 9px;background:rgba(255,255,255,.24);
+    color:var(--ink);border:1px solid rgba(42,37,32,.32);border-radius:3px;
+    font-family:var(--ui);font-size:11px;line-height:1.3;transition:all .22s var(--ease);
+  }
+  .route-choice strong{display:block;font-family:var(--display);font-size:17px;font-weight:600;margin-bottom:5px;}
+  .route-choice small{display:block;color:var(--ink-soft);font-size:9px;line-height:1.35;}
+  .route-choice:hover{transform:translateY(-2px);background:var(--ink);color:var(--parchment);}
+  .route-choice:hover small{color:rgba(251,246,234,.7);}
+  .langbank{position:fixed;z-index:22;left:var(--s4);bottom:var(--s4);display:flex;gap:5px;}
+  .lang-choice{appearance:none;border:1px solid rgba(251,246,234,.34);background:rgba(20,25,34,.58);color:var(--parchment);padding:8px 10px;border-radius:3px;cursor:pointer;font:600 10px var(--ui);letter-spacing:.08em;backdrop-filter:blur(8px);}
+  .lang-choice[aria-pressed="true"]{background:var(--parchment);color:var(--ink);}
+  .route-progress{margin:14px 0 0;padding:12px;border:1px dashed var(--ui-line);background:rgba(230,200,118,.12);}
+  .route-progress .kicker{margin-bottom:7px;}
+  .route-next{width:100%;margin-top:7px;}
   .admit .no{
-    margin-top:44px;font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;
+    margin-top:16px;font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;
     color:var(--ink-soft);display:flex;justify-content:space-between;
   }
   .admit .enter{
@@ -515,6 +535,7 @@
     padding:13px;transition:background .25s var(--ease);
   }
   .admit .enter:hover{background:var(--red);}
+  @media(max-width:640px){.route-grid{grid-template-columns:1fr}.admit{padding:21px 18px}.route-choice{min-height:58px}.langbank{left:12px;bottom:12px}}
   #skip{
     position:fixed;z-index:21;right:var(--s4);bottom:var(--s4);
     appearance:none;background:transparent;border:0;cursor:pointer;
@@ -819,9 +840,14 @@
 
 <div class="hud" id="hud-left">
   <div class="parkmark">
-    <span class="n">Idea Wonderpark</span>
-    <span class="sub">Anonymous public demo · Product × Research × Build</span>
+    <span class="n" data-copy="parkName">嬌蠻公主的人生遊樂園</span>
+    <span class="sub" data-copy="parkSub">痕跡、選擇、失敗與再出發</span>
   </div>
+</div>
+
+<div class="langbank" role="group" aria-label="Language">
+  <button class="lang-choice" data-lang-choice="zh-Hant">繁中</button>
+  <button class="lang-choice" data-lang-choice="en">EN</button>
 </div>
 
 <div class="hud" id="hud-right">
@@ -918,18 +944,23 @@
   </div>
   <div class="log" id="dolly-log"></div>
   <div class="asks" id="dolly-asks"></div>
-  <div class="foot">A small guide for an anonymous public demo</div>
+  <div class="foot" data-copy="dollyFoot">依訪客身份，選一條更像你的路線</div>
 </div>
 
-<div id="titlecard"><div class="w"><div class="l1">Welcome to</div><div class="l2">Idea Wonderpark</div></div></div>
+<div id="titlecard"><div class="w"><div class="l1" data-copy="welcome">歡迎來到</div><div class="l2" data-copy="parkName">嬌蠻公主的人生遊樂園</div></div></div>
 
 <div id="intro">
   <div class="admit">
-    <div class="one">Admit One</div>
-    <p class="wp">Idea Wonderpark</p>
-    <div class="tag">Anonymous Public Demo · Product × Research × Build</div>
+    <div class="one" data-copy="admit">人生入場券 · Admit One</div>
+    <p class="wp" data-copy="ticketTitle">嬌蠻公主的人生遊樂園</p>
+    <div class="tag" data-copy="ownerName">驕蠻公主李時珍的純情駙馬</div>
+    <div class="intro-copy" data-copy="intro"></div>
     <div class="no"><span>No. 0001</span><span>Valid Always</span></div>
-    <button class="enter" id="enter">Enter the Park</button>
+    <div class="route-grid" aria-label="Choose a route">
+      <button class="route-choice" data-route-start="quick"><strong data-route-label="quick"></strong><small data-route-desc="quick"></small></button>
+      <button class="route-choice" data-route-start="full"><strong data-route-label="full"></strong><small data-route-desc="full"></small></button>
+      <button class="route-choice" data-route-start="lab"><strong data-route-label="lab"></strong><small data-route-desc="lab"></small></button>
+    </div>
   </div>
 </div>
 <button id="skip">Skip intro</button>
@@ -937,15 +968,15 @@
 <div id="loading" role="status" aria-live="polite">
   <div class="stub">
     <div class="srow"><span>Admit One</span><span>No. 0001</span></div>
-    <div class="stitle">Idea Wonderpark</div>
-    <div class="ssub">Printing your ticket…</div>
+    <div class="stitle" data-copy="parkName">嬌蠻公主的人生遊樂園</div>
+    <div class="ssub" data-copy="printing">正在印製你的人生入場券…</div>
     <div class="bar"><i></i></div>
     <div class="step" id="lstep">Raising the gate</div>
     <div class="perf"><span>Gate A · Any Weather</span><span>Valid Always</span></div>
   </div>
 </div>
 <div id="fallback"><div class="box">
-  <h1>Idea Wonderpark</h1>
+  <h1 data-copy="parkName">嬌蠻公主的人生遊樂園</h1>
   <p>This park is built with WebGL, and your browser could not open the gate. Try a recent desktop Chrome, Safari or Firefox with hardware acceleration enabled — the park is worth the trip.</p>
 </div></div>
 
@@ -956,6 +987,35 @@
 }}
 </script>
 <script src="park-content.js"></script>
+<script>
+(function(){
+  const copy=window.PARK_COPY||{}, lang=window.PARK_LANG||'zh-Hant', zh=lang!=='en';
+  document.documentElement.lang=zh?'zh-Hant':'en';
+  document.title=copy.pageTitle||'Wonderpark';
+  const shell={
+    welcome:zh?'歡迎來到':'Welcome to', admit:zh?'人生入場券 · Admit One':'Admit One · A Ticket to a Life',
+    ownerName:copy.ownerName, printing:zh?'正在印製你的人生入場券…':'Printing your ticket to a life…',
+    dollyFoot:zh?'依訪客身份，選一條更像你的路線':'A route shaped around who is visiting'
+  };
+  document.querySelectorAll('[data-copy]').forEach(el=>{const key=el.dataset.copy;el.textContent=copy[key]??shell[key]??el.textContent;});
+  document.querySelectorAll('[data-route-label]').forEach(el=>el.textContent=copy.routes?.[el.dataset.routeLabel]||'');
+  document.querySelectorAll('[data-route-desc]').forEach(el=>el.textContent=copy.routeDescriptions?.[el.dataset.routeDesc]||'');
+  const mapNames=zh?{gate:'入口門票',ferris:'人生摩天輪',coaster:'項目過山車',circus:'創意實驗室',garden:'故事花園',globe:'世界地球儀',gallery:'攝影畫廊',arcade:'技能街機廳',prizes:'方法獎品屋',carousel:'興趣旋轉木馬',futureland:'未來世界',dolly:'問問 Dolly',graveyard:'第二次開花'}:
+    {gate:'Entrance Ticket',ferris:'Ferris Wheel',coaster:'Project Coaster',circus:'Creative Lab',garden:'Story Garden',globe:'World Globe',gallery:'Photography',arcade:'Skills Arcade',prizes:'Proof & Methods',carousel:'Interest Carousel',futureland:'Futureland',dolly:'Ask Dolly',graveyard:'Second Bloom'};
+  document.querySelectorAll('#mapcard .map-links [data-goto]').forEach(el=>el.textContent=mapNames[el.dataset.goto]||el.textContent);
+  const mapTitle=document.querySelector('#mapcard h4'); if(mapTitle) mapTitle.textContent=zh?'樂園地圖':'Park Plan';
+  const mapFine=document.querySelector('#mapcard .fine'); if(mapFine) mapFine.textContent=zh?'保留全部設施 · 選一站直接前往':'All attractions preserved · choose a stop';
+  const dollyName=document.querySelector('#dolly .name'); if(dollyName) dollyName.textContent=zh?'問問 Dolly':'Ask Dolly';
+  const dollyInfo=document.querySelector('#dolly .top .kicker span:first-child'); if(dollyInfo) dollyInfo.textContent=zh?'遊客服務':'Information';
+  const hint=document.getElementById('hint'); if(hint) hint.textContent=zh?'拖曳觀看 · 點擊發光設施':'Drag to look · click anything lit';
+  const back=document.getElementById('back'); if(back) back.textContent=zh?'← 返回樂園':'← Back to Park';
+  const skip=document.getElementById('skip'); if(skip) skip.textContent=zh?'跳過開場':'Skip intro';
+  document.querySelectorAll('[data-lang-choice]').forEach(btn=>{
+    btn.setAttribute('aria-pressed',String(btn.dataset.langChoice===lang));
+    btn.onclick=()=>{localStorage.setItem('wonderpark-language',btn.dataset.langChoice);location.reload();};
+  });
+})();
+</script>
 <script>
   // If the module never boots (no WebGL / no network for the ESM build), open the fallback gate.
   window.__parkBooted = false;
@@ -973,14 +1033,14 @@
 /* the ticket stub narrates the build so the wait reads as part of the park */
 (function(){
   const el=document.getElementById('lstep'); if(!el) return;
-  const steps=['Raising the gate','Laying the paths','Planting the trees',
-               'Winding the carousel','Hanging the lamps','Testing the coaster',
-               'Waking the ferris wheel','Sweeping the midway'];
+  const zh=(window.PARK_LANG||'zh-Hant')!=='en';
+  const steps=zh?['升起大門','鋪好路徑','種下樹木','轉動木馬','點亮燈火','測試過山車','喚醒摩天輪','等待你入場']:
+    ['Raising the gate','Laying the paths','Planting the trees','Winding the carousel','Hanging the lamps','Testing the coaster','Waking the ferris wheel','Sweeping the midway'];
   let i=0,stopped=false;
   const tick=()=>{ if(stopped) return; el.textContent=steps[i%steps.length]; i++;
     setTimeout(tick,900); };
   tick();
-  window.__stubDone=()=>{ stopped=true; el.textContent='Enjoy the park'; };
+  window.__stubDone=()=>{ stopped=true; el.textContent=zh?'歡迎入園':'Enjoy the park'; };
 })();
 </script>
 <script type="module">
@@ -991,6 +1051,20 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 
 const PC=window.PARK_CONTENT;
+const LANG=window.PARK_LANG||'zh-Hant';
+const ZH=LANG!=='en';
+const tr=(zh,en)=>ZH?zh:en;
+const COPY=window.PARK_COPY||{};
+const ROUTES={
+  quick:['ferris','coaster','garden','globe'],
+  full:['gate','ferris','coaster','garden','globe','circus','arcade','prizes','gallery','carousel','graveyard','futureland'],
+  lab:['circus','arcade','futureland','garden'],
+  hr:['ferris','coaster','arcade','futureland'],
+  brand:['coaster','garden','prizes','globe'],
+  ai:['circus','arcade','futureland','garden'],
+  friend:['gate','globe','gallery','carousel','graveyard']
+};
+let activeRouteKey=null;
 
 /* ============================================================
    0 · CONSTANTS, PALETTE, CAPABILITY
@@ -2164,7 +2238,7 @@ const gate=new THREE.Group(); gate.position.set(0,hAt(0,34),34); world.add(gate)
     curio(b,label,cap);
   });
 }
-hotspot(gate,'gate','Entrance Gate',{az:.05,pol:.92,dist:38,tgt:new THREE.Vector3(0,7,30)});
+hotspot(gate,'gate',tr('入口門票','Entrance Ticket'),{az:.05,pol:.92,dist:38,tgt:new THREE.Vector3(0,7,30)});
 
 /* ============================================================
    7 · FERRIS WHEEL OF TIME — the landmark
@@ -2258,13 +2332,13 @@ const R=13.4;
   ferris.userData.cabs=CABS;
   ferris.userData.wheel=wheel;
 }
-hotspot(ferris,'ferris','Ferris Wheel of Time',
+hotspot(ferris,'ferris',tr('人生摩天輪','Ferris Wheel of Time'),
   {az:-.30,pol:.88,dist:44,tgt:new THREE.Vector3(-13,13,-24)});
 
 /* ============================================================
    8 · PROJECT COASTER — elegant, slightly wild
    ============================================================ */
-const RIDES=PC.projects.featuredIds.map(id=>PC.projects.items.find(p=>p.slug===id)).filter(Boolean);
+const RIDES=PC.projects.items;
 const coaster=new THREE.Group();
 const CO=new THREE.Vector3(34,0,-9);
 coaster.position.set(CO.x,hAt(CO.x,CO.z),CO.z); world.add(coaster);
@@ -2387,18 +2461,13 @@ coaster.position.set(CO.x,hAt(CO.x,CO.z),CO.z); world.add(coaster);
   }
   coaster.userData.cars=cars;
 }
-hotspot(coaster,'coaster','Project Coaster',
+hotspot(coaster,'coaster',tr('項目過山車','Project Coaster'),
   {az:.42,pol:.86,dist:42,tgt:new THREE.Vector3(34,9,-8)});
 
 /* ============================================================
    9 · IDEA CIRCUS — where physics is a suggestion
    ============================================================ */
-const TENTS=[
-  {name:'Asteroid Civilization',kind:'Generative visual study',text:'Tenderness at cosmic scale.',image:'assets/ai-lab/asteroid-civilization.webp'},
-  {name:'Coffee Shop in a Stone',kind:'Generative visual study',text:'Warmth hidden inside the ordinary.',image:'assets/ai-lab/stone-cafe.webp'},
-  {name:'Whale-rib Library',kind:'Generative visual study',text:'A reading space built from memory.',image:'assets/ai-lab/whale-library.webp'},
-  {name:'Floating Cloud House',kind:'Generative visual study',text:'A light home above a heavy world.',image:'assets/ai-lab/cloud-house.webp'}
-];
+const TENTS=PC.aiLab.gallery.map(x=>({name:x.title,kind:x.model,text:x.goal,image:x.image}));
 const circus=new THREE.Group();
 const CI=new THREE.Vector3(-28,0,-3);
 circus.position.set(CI.x,hAt(CI.x,CI.z),CI.z); world.add(circus);
@@ -2495,7 +2564,7 @@ circus.position.set(CI.x,hAt(CI.x,CI.z),CI.z); world.add(circus);
   }
   curio(arch,'The Circus Arch','Four featured visuals lead to fourteen experiments and eight product ideas.');
 }
-hotspot(circus,'circus','Idea Circus',
+hotspot(circus,'circus',tr('創意實驗室','Creative Lab'),
   {az:-.62,pol:.84,dist:40,tgt:new THREE.Vector3(-27,5,-2)});
 
 /* ==== part5_props ==== */
@@ -2588,17 +2657,15 @@ world.add(dolly);
 /* Dolly is not furniture: these are the places she wanders between.
    Must live at module scope — a block-scoped const is invisible to the loop. */
 const DOLLY_STOPS=[[BO.x,BO.z+3],[2,2],[-40,34],[44,36],[66,12],[-46,2],[-24,-30],[-33,60],[26,18],[0,34],[18,-16],[-14,14]];
-hotspot(booth,'dolly','Ask Dolly',
+hotspot(booth,'dolly',tr('問問 Dolly','Ask Dolly'),
   {az:.16,pol:.9,dist:26,tgt:new THREE.Vector3(12,3,25)});
-hotspot(dolly,'dolly','Ask Dolly',
+hotspot(dolly,'dolly',tr('問問 Dolly','Ask Dolly'),
   {az:.16,pol:.9,dist:26,tgt:new THREE.Vector3(12,3,25)});
 
 /* ============================================================
    11 · THE GRAVEYARD — not on the map
    ============================================================ */
-const GRAVES=[...PC.failures,
-  {title:'',meta:'',detail:''},{title:'',meta:'',detail:''},{title:'',meta:'',detail:''}
-].map(g=>({a:g.title,b:g.meta,c:'',d:g.detail}));
+const GRAVES=PC.failures.map(g=>({a:g.title,b:g.meta,c:tr('再次開花','BLOOM AGAIN'),d:g.detail}));
 const graveyard=new THREE.Group();
 const GY=new THREE.Vector3(48,0,-25);
 graveyard.position.set(GY.x,hAt(GY.x,GY.z),GY.z); world.add(graveyard);
@@ -2627,13 +2694,13 @@ graveyard.position.set(GY.x,hAt(GY.x,GY.z),GY.z); world.add(graveyard);
     // engraved face
     const ecv=document.createElement('canvas'); ecv.width=256; ecv.height=320;
     const ex=ecv.getContext('2d');
-    ex.fillStyle='#c3b9a6'; ex.fillRect(0,0,256,320);
+    ex.fillStyle='#e8ddc7'; ex.fillRect(0,0,256,320);
     ex.globalAlpha=.10; ex.fillStyle='#5e7355';
     for(let k=0;k<70;k++) ex.fillRect(Math.random()*256,Math.random()*320,Math.random()*22,Math.random()*5);
     ex.globalAlpha=1;
     ex.fillStyle='#6b6355'; ex.textAlign='center';
     ex.font='500 34px "Cormorant Garamond", Georgia, serif';
-    ex.fillText('RIP',128,72);
+    ex.fillText(tr('再開','AGAIN'),128,72);
     ex.font='500 25px "Cormorant Garamond", Georgia, serif';
     ex.fillStyle='#544d42';
     const wrap=(txt,y)=>{ txt.split(' ').reduce((line,w)=>{
@@ -2666,12 +2733,12 @@ graveyard.position.set(GY.x,hAt(GY.x,GY.z),GY.z); world.add(graveyard);
     stone.position.y=1.0; stone.castShadow=true; stone.receiveShadow=true; st.add(stone);
     const moss=new THREE.Mesh(new THREE.IcosahedronGeometry(.34,0),M.woodMoss);
     moss.position.set(.4,.2,.1); moss.scale.set(1,.5,1); st.add(moss);
-    // tiny candle
+    // a tiny new shoot: this is a growth garden, not a place of death
     if(i%2===0){
-      const c=new THREE.Mesh(new THREE.CylinderGeometry(.09,.09,.3,6),M.canvasWhite);
+      const c=new THREE.Mesh(new THREE.CylinderGeometry(.045,.065,.46,6),M.woodMoss);
       c.position.set(-.5,.16,.5); st.add(c);
-      const fl=emissive(C.amber,1.5,.075,'graveyard',5);
-      fl.position.set(-.5,.36,.5); st.add(fl);
+      const fl=new THREE.Mesh(new THREE.SphereGeometry(.11,7,5),mat(C.butter,{map:false}));
+      fl.position.set(-.5,.43,.5); st.add(fl);
     }
     // flowers
     for(let f=0;f<3;f++){
@@ -2685,9 +2752,9 @@ graveyard.position.set(GY.x,hAt(GY.x,GY.z),GY.z); world.add(graveyard);
   x.fillStyle='#5e7355'; x.fillRect(0,0,384,128);
   x.fillStyle='#f2e9d8'; x.textAlign='center'; x.textBaseline='middle';
   x.font='500 40px "Cormorant Garamond", Georgia, serif'; x.letterSpacing='6px';
-  x.fillText('IDEAS AT REST',192,52);
+  x.fillText(tr('第二次開花','SECOND BLOOM'),192,52);
   x.font='400 20px Inter, sans-serif'; x.letterSpacing='4px'; x.globalAlpha=.75;
-  x.fillText('PLEASE DO NOT REVIVE',192,94);
+  x.fillText(tr('失敗長成方法','FAILURE BECOMES METHOD'),192,94);
   const tex=new THREE.CanvasTexture(cv); tex.colorSpace=THREE.SRGBColorSpace;
   const sign=new THREE.Mesh(new THREE.PlaneGeometry(3.2,1.07),
     new THREE.MeshStandardMaterial({map:tex,roughness:.8,side:THREE.DoubleSide}));
@@ -2699,7 +2766,7 @@ graveyard.position.set(GY.x,hAt(GY.x,GY.z),GY.z); world.add(graveyard);
   const t=makeTree('old'); t.position.set(6.2,-.2,-4.4); t.scale.setScalar(1.4);
   t.rotation.z=.1; graveyard.add(t);
 }
-hotspot(graveyard,'graveyard','?',
+hotspot(graveyard,'graveyard',tr('第二次開花','Second Bloom'),
   {az:.66,pol:.86,dist:22,tgt:new THREE.Vector3(48,1.6,-25)});
 
 /* ============================================================
@@ -2946,7 +3013,7 @@ const carousel=new THREE.Group();
 
   carousel.userData.spin=spin;
 
-  hotspot(carousel,'carousel','The Gallopers',
+  hotspot(carousel,'carousel',tr('興趣旋轉木馬','Interest Carousel'),
     {az:.42,pol:1.09,dist:27,tgt:new THREE.Vector3(P.x,2.6,P.z)});
 }
 
@@ -3447,10 +3514,8 @@ function signPost(text,sub,w,h,px){
    left physically lying around.
    ------------------------------------------------------------ */
 const WRITING=[
-  {name:'Learning by Doing',kind:'Method',where:'build first, understand through making',text:'Choose a real problem, ship the smallest learning vehicle, observe what breaks, and transfer the lesson.'},
-  {name:'AI-Augmented Thinking',kind:'Method',where:'AI as a rigorous thinking partner',text:'Use AI to challenge a position, surface counterexamples, and compare perspectives—not merely to polish an answer.'},
-  {name:'The Self-validation Trap',kind:'Working note',where:'when fluency feels like insight',text:'A clearer restatement can feel like progress. Structured disagreement helps separate fluency from a genuinely new idea.'},
-  {name:'The Taste Bottleneck',kind:'Working note',where:'judgment after execution gets cheaper',text:'When building becomes easier, deciding what deserves to exist becomes the scarce capability.'}
+  ...PC.learning.methods.map(x=>({name:x.title,kind:tr('方法','Method'),where:x.appliesTo,text:x.summary})),
+  ...PC.learning.notes.map(x=>({name:x.title,kind:x.source,where:tr('研究與思考筆記','Research & thinking note'),text:x.summary}))
 ];
 
 const garden=new THREE.Group();
@@ -3592,7 +3657,7 @@ const garden=new THREE.Group();
   const sp=new THREE.Mesh(new THREE.CylinderGeometry(.14,.16,2.4,8),M.woodCream);
   sp.position.set(0,1.2,12.2); garden.add(sp);
 
-  hotspot(garden,'garden','Story Garden',
+  hotspot(garden,'garden',tr('故事花園','Story Garden'),
     {az:-.52,pol:1.05,dist:36,tgt:new THREE.Vector3(P.x,3,P.z)});
 }
 
@@ -3725,7 +3790,7 @@ const globeZone=new THREE.Group();
   const sp=new THREE.Mesh(new THREE.CylinderGeometry(.14,.16,2.5,8),M.woodCream);
   sp.position.set(0,1.25,7.6); globeZone.add(sp);
 
-  hotspot(globeZone,'globe','Around the World',
+  hotspot(globeZone,'globe',tr('世界地球儀','World Globe'),
     {az:-.34,pol:.92,dist:24,tgt:new THREE.Vector3(P.x-3.5,6.4,P.z)});
 }
 
@@ -3733,12 +3798,10 @@ const globeZone=new THREE.Group();
    9c · FUTURELAND — a permanent construction site
    Always unfinished, on purpose.
    ------------------------------------------------------------ */
-const BUILDING_NOW=[
-  {name:'Agent Landscape',kind:'Research and analysis',sign:'RESEARCH',text:'A broad map of agent architecture, adoption patterns, and product questions.',note:'Public summary only.'},
-  {name:'Information Digest',kind:'Automation experiment',sign:'WORKFLOW',text:'A lightweight workflow for collecting sources, creating short summaries, and distributing a daily brief.',note:'Implementation details omitted.'},
-  {name:'Editable AI Profile',kind:'Product concept',sign:'PROTOTYPE',text:'A concept for collecting evidence, revealing uncertainty, and keeping an AI profile editable by its user.',note:'Identity materials are not included.'},
-  {name:'Idea Wonderpark',kind:'Interactive portfolio demo',sign:'IN ITERATION',text:'A low-poly environment that turns project types, methods, images, and broad perspectives into a place visitors can navigate.',note:'This is the anonymous public build.'}
-];
+const BUILDING_NOW=PC.now.items.map((x,i)=>({
+  name:x.title,kind:PC.now.title,sign:[tr('海外','GLOBAL'),tr('創作','CREATE'),tr('未來','FUTURE')][i]||'NOW',
+  text:x.text,note:tr('持續建造中。','Still under construction.')
+}));
 
 const futureland=new THREE.Group();
 {
@@ -3910,7 +3973,7 @@ const futureland=new THREE.Group();
   const sp=new THREE.Mesh(new THREE.CylinderGeometry(.15,.17,2.6,8),M.woodCream);
   sp.position.set(-2,1.3,11.4); futureland.add(sp);
 
-  hotspot(futureland,'futureland','Futureland',
+  hotspot(futureland,'futureland',tr('未來世界','Futureland'),
     {az:.86,pol:1.10,dist:38,tgt:new THREE.Vector3(P.x,4.6,P.z)});
 }
 
@@ -4044,7 +4107,7 @@ const arcade=new THREE.Group();
     slot.position.set(.62,1.24,.61); g.add(slot);
   });
 
-  hotspot(arcade,'arcade','Skill Arcade',
+  hotspot(arcade,'arcade',tr('技能街機廳','Skills Arcade'),
     {az:0.02,pol:1.34,dist:23,tgt:new THREE.Vector3(P.x,2.6,P.z+3)});
 }
 
@@ -4188,7 +4251,7 @@ const prizes=new THREE.Group();
   const sign=signPost('PRIZE CORNER','AWARDS · OUTCOMES',7.2,1.7,50);
   sign.position.set(0,6.2,2.9); prizes.add(sign);
 
-  hotspot(prizes,'prizes','Prize Corner',
+  hotspot(prizes,'prizes',tr('方法獎品屋','Proof & Methods'),
     {az:0.04,pol:1.32,dist:19,tgt:new THREE.Vector3(P.x,2.4,P.z+2.5)});
 }
 
@@ -4295,7 +4358,7 @@ const gallery=new THREE.Group();
   const sp=new THREE.Mesh(new THREE.CylinderGeometry(.14,.16,2.4,8),M.woodCream);
   sp.position.set(-9.6,1.2,4.4); gallery.add(sp);
 
-  hotspot(gallery,'gallery','The Gallery',
+  hotspot(gallery,'gallery',tr('攝影畫廊','Photography Gallery'),
     {az:-.60,pol:1.24,dist:27,tgt:new THREE.Vector3(P.x,3.4,P.z-1)});
 }
 
@@ -4675,7 +4738,7 @@ function focusOn(id){
   document.getElementById('btn-map').setAttribute('aria-pressed','false');
   if(id==='dolly'){ closeSheet(); openDolly(); }
   else { closeDolly(); openSheetFor(id); }
-  if(id==='graveyard') discover('graveyard','You found the graveyard. Ideas at rest.');
+  if(id==='graveyard') discover('graveyard',tr('你找到了第二次開花：失敗正在長成方法。','You found Second Bloom: failure is growing into method.'));
 }
 
 /* --------- pointer: drag to orbit, wheel to lean in, click to pick --------- */
@@ -5105,24 +5168,24 @@ function renderMarkdownLite(source){
    learned gesture rather than a different button per panel. The plate carries
    the ride's own parting line: same mechanism everywhere, local voice. */
 const EXIT_LINES={
-  gate:      ['Entrance Gate',     'mind the turnstile'],
-  ferris:    ['Ferris Wheel of Time','watch your step down'],
-  coaster:   ['Project Coaster',   'please keep hands inside'],
-  circus:    ['Idea Circus',       'the tent stays up all night'],
-  carousel:  ['The Gallopers',     'wait for the horses to stop'],
-  garden:    ['Story Garden',      'leave the gate as you found it'],
-  globe:     ['Around the World',  'post it on your way out'],
-  futureland:['Futureland',        'mind the scaffolding'],
-  arcade:    ['Skill Arcade',      'your credits are saved'],
-  prizes:    ['Prize Corner',      'nothing to redeem, take a look'],
-  gallery:   ['The Gallery',       'lights stay on for the next visitor'],
-  dolly:     ['Ask Dolly',         'she will be here'],
-  graveyard: ['Quiet Corner',      'mind the headstones']
+  gate:      [tr('入口門票','Entrance Ticket'),tr('一生有效','valid for a lifetime')],
+  ferris:    [tr('人生摩天輪','Ferris Wheel of Time'),tr('小心腳下的轉折','watch your step down')],
+  coaster:   [tr('項目過山車','Project Coaster'),tr('抓緊你的想法','keep hold of your ideas')],
+  circus:    [tr('創意實驗室','Creative Lab'),tr('帳篷整夜不熄燈','the tent stays up all night')],
+  carousel:  [tr('興趣旋轉木馬','Interest Carousel'),tr('等木馬慢慢停下','wait for the horses to stop')],
+  garden:    [tr('故事花園','Story Garden'),tr('帶走一種思考方法','take a way of thinking')],
+  globe:     [tr('世界地球儀','World Globe'),tr('下一站仍未決定','the next stop is unwritten')],
+  futureland:[tr('未來世界','Futureland'),tr('小心仍在搭建','mind the scaffolding')],
+  arcade:    [tr('技能街機廳','Skills Arcade'),tr('你的代幣已保存','your credits are saved')],
+  prizes:    [tr('方法獎品屋','Proof & Methods'),tr('獎品是可重複的方法','the prize is a reusable method')],
+  gallery:   [tr('攝影畫廊','Photography Gallery'),tr('為下一位訪客留著燈','lights stay on for the next visitor')],
+  dolly:     [tr('問問 Dolly','Ask Dolly'),tr('她會一直在這裡','she will be here')],
+  graveyard: [tr('第二次開花','Second Bloom'),tr('失敗長成了方法','failure grows into method')]
 };
 function exitBar(id){
   const e=EXIT_LINES[id]||['The Park','back the way you came'];
   return `<div class="exitbar">
-    <button class="way" data-close><span class="chev">‹</span>Exit to park</button>
+    <button class="way" data-close><span class="chev">‹</span>${tr('返回樂園','Exit to park')}</button>
     <span class="plate"><span class="zone">${esc(e[0])}</span><span class="note">${esc(e[1])}</span></span>
   </div>`;
 }
@@ -5153,6 +5216,21 @@ function closeMapCard(){
 
 /* the sheet currently on screen, so the exit knows which ride it belongs to */
 let sheetZone=null;
+function routeProgress(zone){
+  const route=ROUTES[activeRouteKey];
+  if(!route) return '';
+  const index=route.indexOf(zone);
+  if(index<0) return '';
+  const next=route[index+1];
+  const label=COPY.routes?.[activeRouteKey]||tr('專屬路線','Your route');
+  return `<div class="route-progress"><div class="kicker">${esc(label)} · ${index+1}/${route.length}</div>${next
+    ? `<button class="paper-action route-next" data-route-next="${esc(next)}">${tr('下一站','Next stop')} → ${esc(zoneName(next))}</button>`
+    : `<strong>${tr('路線完成。接下來，跟著好奇心走。','Route complete. From here, follow your curiosity.')}</strong>`}</div>`;
+}
+function zoneName(id){
+  const names={gate:tr('入口門票','Entrance'),ferris:tr('摩天輪','Ferris Wheel'),coaster:tr('項目過山車','Project Coaster'),garden:tr('故事花園','Story Garden'),globe:tr('世界地球儀','World Globe'),circus:tr('創意實驗室','Creative Lab'),arcade:tr('技能街機廳','Skills Arcade'),prizes:tr('方法獎品屋','Proof & Methods'),gallery:tr('攝影畫廊','Photography Gallery'),carousel:tr('興趣旋轉木馬','Interest Carousel'),graveyard:tr('第二次開花','Second Bloom'),futureland:tr('未來世界','Futureland')};
+  return names[id]||id;
+}
 function openSheet(html){
   const wasOpen=sheetEl.classList.contains('open');
   objEl.innerHTML=html;
@@ -5164,6 +5242,7 @@ function openSheet(html){
     /* retire any per-panel close button; the exit bar replaces them all */
     paper.querySelectorAll('.sheet-close,.back-inline').forEach(b=>b.remove());
     paper.insertAdjacentHTML('afterbegin',exitBar(sheetZone));
+    paper.insertAdjacentHTML('beforeend',routeProgress(sheetZone));
   }
   syncHudHeight();
   closeMapCard();
@@ -5176,6 +5255,7 @@ function openSheet(html){
 function closeSheet(){ sheetEl.classList.remove('open'); sheetEl.setAttribute('aria-hidden','true'); }
 function bindSheet(){
   objEl.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>{ toOverview(); });
+  objEl.querySelectorAll('[data-route-next]').forEach(b=>b.onclick=()=>focusOn(b.dataset.routeNext));
   objEl.querySelectorAll('[data-cabin]').forEach(b=>b.onclick=()=>{
     activeCabin=+b.dataset.cabin; ferrisSheet(); spinCabinToFront(activeCabin);
   });
@@ -5339,14 +5419,14 @@ function gateSheet(){
   const p=PC.profile;
   openSheet(`
     <div class="label-plate">
-      <div class="kicker">Entrance · ${esc(p.locations.join(' · '))}</div>
+      <div class="kicker">${tr('入口門票','Entrance Ticket')} · ${esc(p.locations.join(' · '))}</div>
       <h2 class="serif-xl">${esc(p.name)}</h2>
-      <div class="metarow"><span>${esc(p.role)}</span><span>Anonymous public edition</span></div>
+      <div class="metarow"><span>${esc(p.role)}</span><span>${tr('公開版不展示項目數據','No project metrics in this public edition')}</span></div>
       <div class="rule"></div>
       <div class="prose">
         <p><em>${esc(p.intro)}</em></p>
         <p>${esc(p.story)}</p>
-        <p>The wheel holds broad capability chapters, the coaster holds generalized project types, and the garden keeps the methods behind both. Dolly can turn them into a short route.</p>
+        <p>${tr('摩天輪保存人生轉折，過山車保存代表項目，花園保存文學、研究與思考方法。Dolly 會依你的身份推薦一條路。','The Ferris Wheel keeps turning points, the Coaster keeps selected projects, and the Garden keeps literature, research, and methods. Dolly can shape a route around who you are.')}</p>
       </div>
       <div class="rule"></div>
       <div class="actionrow">
@@ -5363,14 +5443,14 @@ function graveSheet(){
   const items=GRAVES.filter(g=>g.a).map(g=>`<li>${esc(g.a)}<br/>${esc(g.b)}<small>${esc(g.d)}</small></li>`).join('');
   openSheet(`
     <div class="label-plate">
-      <div class="kicker">Not on the park plan</div>
-      <h2 class="serif-xl">Ideas at Rest</h2>
+      <div class="kicker">${tr('失敗不是終點','Failure is not the final stop')}</div>
+      <h2 class="serif-xl">${tr('第二次開花','Second Bloom Garden')}</h2>
       <div class="prose" style="margin-top:10px">
-        <p>Only broad, non-identifying lessons are named here. The remaining headstones stay blank rather than inventing evidence.</p>
+        <p>${tr('這裡不埋葬失敗。每一次失誤都被改寫成下一輪可以執行的方法：看見系統後果、先調節壓力、對齊後再行動。','Nothing is buried here. Each failure is rewritten into a method for the next round: see systemic consequences, regulate pressure, and align before acting.')}</p>
       </div>
       <ul class="epitaphs">${items}</ul>
       <div class="rule"></div>
-      <div class="metarow"><span>Three recorded lessons</span><span>Three blank stones</span></div>
+      <div class="metarow"><span>${tr('三次真實復盤','Three honest retrospectives')}</span><span>${tr('三種新方法','Three methods that grew back')}</span></div>
       <button class="sheet-close" data-close>← Back to Park</button>
     </div>`);
 }
@@ -5404,22 +5484,14 @@ const asksEl=document.getElementById('dolly-asks');
     async function ask(q){ const r = await fetch('/api/dolly',{...}); return r.json(); }  */
 const DOLLY_SCRIPT={
   root:[
-    {q:'I only have 3 minutes.',a:'Take the Ferris Wheel for six broad capability chapters, then the Project Coaster for five generalized project types. Nothing in this route identifies a person, employer, school, or client.',go:'ferris',
-     next:['Show me the selected work.','Show me the public methods.','What is the globe showing?']},
-    {q:'Show me the selected work.',a:'The Project Coaster contains five anonymous concept studies about decision support, structured workflows, research synthesis, interactive systems, and shared interaction. They communicate methods without reproducing a real project history.',go:'coaster',
-     next:['Show me the public methods.','What is the globe showing?','Show me the AI Lab.']},
-    {q:'Show me the public methods.',a:'The Story Garden contains a small selection of prompts, methods, notes, and readings. It explains how the work approaches validation, reflection, disagreement, and learning by doing.',go:'garden',
-     next:['Show me the selected work.','Show me the AI Lab.','What is intentionally omitted?']},
-    {q:'What is the globe showing?',a:'The mechanical globe uses broad regional points and illustrative connections. It preserves the interaction and visual idea without revealing a personal travel history, exact city list, or route.',go:'globe',
-     next:['Show me the photographs.','Show me the selected work.','What is intentionally omitted?']},
-    {q:'Show me the AI Lab.',a:'The Idea Circus contains a small public selection of generative visual studies and AI interaction ideas. Timestamps, accounts, and personal working history are omitted.',go:'circus',
-     next:['Show me the public methods.','Show me the photographs.','What is intentionally omitted?']},
-    {q:'Show me the photographs.',a:'The Gallery keeps fourteen images with neutral titles and broad regional labels. The public edition removes identity-bearing images and does not include a photographer identity, exact coordinates, or a personal itinerary.',go:'gallery',
-     next:['What is the globe showing?','Show me the selected work.','What is intentionally omitted?']},
-    {q:'What is intentionally omitted?',a:'Names, portraits, employers, schools, contact details, résumés, precise dates, exact metrics, account links, city-level travel history, and session metadata are all absent from this edition.',go:'gate',
-     next:['Show me the selected work.','Show me the public methods.','I only have 3 minutes.']},
-    {q:'Show me the quiet lessons.',a:'The Quiet Corner keeps three broad lessons about validation, premature precision, and mistaking fluency for insight. Blank stones remain blank rather than inventing evidence.',go:'graveyard',
-     next:['Show me the public methods.','I only have 3 minutes.']}
+    {q:tr('我是 HR，怎麼看？','I am an HR visitor.'),a:tr('我會帶你從人生轉折進入，再看代表項目、能力結構與未來方向。這條路能回答她如何學習、如何工作，以及下一步想走向哪裡。','Start with turning points, then selected work, capabilities, and future direction. This route shows how she learns, works, and where she may go next.'),route:'hr'},
+    {q:tr('我是品牌行銷人。','I work in brand marketing.'),a:tr('先坐項目過山車看 Fenty Beauty、Breitling 等品牌實踐，再去故事花園看消費者研究與比較文學如何變成策略。','Start with the Project Coaster for Fenty Beauty and Breitling, then visit the Story Garden to see how consumer research and comparative literature become strategy.'),route:'brand'},
+    {q:tr('我是 AI 產品人。','I work in AI products.'),a:tr('從創意實驗室開始，再看 AI Command Development、未來世界，以及她如何用人文與研究校準 Agent。','Begin at the Creative Lab, then explore AI Command Development, Futureland, and how humanities and research calibrate agents.'),route:'ai'},
+    {q:tr('我是她的朋友。','I am a friend.'),a:tr('從入口聽她自己說話，然後走過世界地球儀、攝影畫廊、興趣木馬與第二次開花。這條路最接近履歷之外的她。','Begin with her own words, then visit the globe, gallery, carousel, and Second Bloom Garden. This is the route closest to the person beyond the résumé.'),route:'friend'},
+    {q:tr('她是誰？','Who is she?'),a:tr('她是在文學、品牌、商業與 AI 之間移動的人。她不想把自己蒸餾成一個無摩擦的標籤，而是把選擇、矛盾與尚未完成的部分保留下來。','She moves among literature, brands, business, and AI. She resists being distilled into a frictionless label, keeping choices, contradictions, and unfinished parts visible.'),go:'gate'},
+    {q:tr('她有什麼特點？','What is she like?'),a:tr('敏感但不只憑感覺；好奇但會追問證據；能在不同文化與學科之間轉譯；也願意把失敗留下來，變成下一輪的方法。','Sensitive without relying on feeling alone; curious enough to demand evidence; able to translate across cultures and disciplines; willing to keep failures and turn them into methods.'),go:'garden'},
+    {q:tr('她的優勢是什麼？','What are her strengths?'),a:tr('品牌策略、消費者洞察、商業分析與 AI Command Development。更底層的能力，是把模糊問題看出結構，再把結構變成可體驗的路徑。','Brand strategy, consumer insight, business analytics, and AI Command Development. Underneath them is an ability to find structure in ambiguity and turn it into an experience.'),go:'arcade'},
+    {q:tr('她如何做決策？','How has she made decisions?'),a:tr('從比較文學到行銷科學，從上海到阿姆斯特丹再到新加坡，她逐漸把「直覺」變成「假設」，把「想快點做」變成「先確認成功標準與二階影響」。','From comparative literature to marketing science, and from Shanghai to Amsterdam to Singapore, she has learned to turn intuition into hypotheses and speed into aligned success criteria plus second-order thinking.'),go:'ferris'}
   ]
 };
 let dollyOpen=false;
@@ -5444,14 +5516,20 @@ function dollyAnswer(q){
   dollySay(q,true);
   asksEl.innerHTML='';
   setTimeout(()=>{
-    if(!item){ dollySay('I do not know that one yet. This public demo keeps its scope deliberately small.'); dollyAsks(DOLLY_SCRIPT.root.slice(0,4).map(x=>x.q)); return; }
+    if(!item){ dollySay(tr('這個問題我還在學。先選一個訪客身份，或問問她是誰。','I am still learning that one. Choose a visitor identity or ask who she is.')); dollyAsks(DOLLY_SCRIPT.root.slice(0,4).map(x=>x.q)); return; }
     dollySay(item.a);
     dollyAsks(item.next||DOLLY_SCRIPT.root.slice(0,4).map(x=>x.q));
-    if(item.go){
+    if(item.route){
+      const goBtn=document.createElement('button');
+      goBtn.className='ask'; goBtn.style.borderColor='var(--red)'; goBtn.style.color='var(--red)';
+      goBtn.textContent=tr('→ 開始這條路線','→ Start this route');
+      goBtn.onclick=()=>{ activeRouteKey=item.route; focusOn(ROUTES[item.route][0]); closeDolly(); };
+      asksEl.prepend(goBtn);
+    } else if(item.go){
       const goBtn=document.createElement('button');
       goBtn.className='ask';
       goBtn.style.borderColor='var(--red)'; goBtn.style.color='var(--red)';
-      goBtn.textContent='→ Take me there';
+      goBtn.textContent=tr('→ 帶我去那裡','→ Take me there');
       goBtn.onclick=()=>{ focusOn(item.go); };
       asksEl.prepend(goBtn);
     }
@@ -5464,8 +5542,8 @@ function openDolly(){
   dollyEl.classList.toggle('sleepy',late);
   if(!logEl.childElementCount){
     dollySay(late
-      ? 'Oh — hello. It is late and I was mostly asleep. Ask anyway, I will manage.'
-      : 'Welcome to Idea Wonderpark. I am Dolly, the guide to this anonymous public demo.');
+      ? tr('啊，你好。夜深了，我剛才差點睡著——不過還是可以問我。','Oh—hello. It is late and I was nearly asleep. Ask anyway.')
+      : tr('歡迎來到嬌蠻公主的人生遊樂園。我是 Dolly。先告訴我你以什麼身份來訪，或直接問我關於她的問題。',"Welcome to the Princess's Life Wonderpark. I am Dolly. Tell me who you are visiting as, or ask me about her."));
     dollyAsks(DOLLY_SCRIPT.root.slice(0,4).map(x=>x.q));
   }
 }
@@ -5529,6 +5607,8 @@ function startIntro(){
     const hint=document.getElementById('hint');
     hint.classList.add('show');
     setTimeout(()=>hint.classList.remove('show'),6500);
+    const first=ROUTES[activeRouteKey]?.[0];
+    if(first) setTimeout(()=>focusOn(first),REDUCED?80:550);
   }); }, REDUCED?100:900);
 }
 function skipIntro(){
@@ -5542,7 +5622,10 @@ function skipIntro(){
   rig.az=rig.azT; rig.pol=rig.polT; rig.dist=rig.distT; rig.tgt.copy(rig.tgtT);
   setRigLimits({azMin:-Math.PI,azMax:Math.PI,polMin:0.42,polMax:1.44,distMin:26,distMax:275});
 }
-document.getElementById('enter').onclick=startIntro;
+document.querySelectorAll('[data-route-start]').forEach(btn=>btn.onclick=()=>{
+  activeRouteKey=btn.dataset.routeStart;
+  startIntro();
+});
 document.getElementById('skip').onclick=skipIntro;
 setTimeout(()=>{ if(!introDone && !introPlaying) document.getElementById('skip').classList.add('show'); },1400);
 
