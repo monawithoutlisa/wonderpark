@@ -524,6 +524,29 @@
   .route-progress{margin:14px 0 0;padding:12px;border:1px dashed var(--ui-line);background:rgba(230,200,118,.12);}
   .route-progress .kicker{margin-bottom:7px;}
   .route-next{width:100%;margin-top:7px;}
+  .facility-intro{
+    margin:12px 0 16px;padding:13px 15px;border-left:3px solid var(--red);
+    background:rgba(180,82,72,.065);font-family:var(--display);font-size:16px;line-height:1.55;
+  }
+  .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;}
+  .detail-block{padding:12px 13px;border:1px solid var(--ui-line-soft);background:rgba(255,255,255,.22);}
+  .detail-block h4{margin:0 0 6px;font:600 9px var(--ui);letter-spacing:.14em;text-transform:uppercase;color:var(--red);}
+  .detail-block p{margin:0;font-size:12px;line-height:1.65;color:var(--ink-soft);}
+  .detail-block ul{margin:0;padding-left:18px;}
+  .detail-block li{font-size:12px;line-height:1.55;margin:0 0 5px;color:var(--ink-soft);}
+  .place-hero{position:relative;margin:0 0 14px;overflow:hidden;border:1px solid var(--ui-line);background:var(--ink);}
+  .place-hero img{display:block;width:100%;height:220px;object-fit:cover;filter:saturate(.88) contrast(1.02);}
+  .place-credit{position:absolute;right:8px;bottom:7px;padding:4px 7px;background:rgba(15,17,20,.68);color:#fff;font:8px var(--ui);letter-spacing:.08em;}
+  .route-stops{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin:8px 0 14px;}
+  .route-stop{padding:6px 8px;border:1px solid var(--ui-line);background:rgba(255,255,255,.25);font-size:10px;}
+  .route-arrow{font-size:10px;color:var(--red);}
+  .growth-list{display:grid;gap:10px;list-style:none!important;padding:0!important;margin:14px 0!important;}
+  .growth-list li{padding:13px 14px;border:1px solid rgba(116,140,102,.35);background:rgba(157,173,138,.10);}
+  .growth-list strong{display:block;font-family:var(--display);font-size:17px;margin-bottom:3px;}
+  .growth-list small{display:block;margin-top:8px;font-size:11px;line-height:1.55;color:var(--ink-soft);}
+  .growth-chain{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-top:10px;}
+  .growth-chain span{display:block;padding:8px;border-top:2px solid var(--sage);font-size:10px;line-height:1.45;background:rgba(255,255,255,.28);}
+  @media(max-width:640px){.detail-grid,.growth-chain{grid-template-columns:1fr}.place-hero img{height:180px}}
   .admit .no{
     margin-top:16px;font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;
     color:var(--ink-soft);display:flex;justify-content:space-between;
@@ -879,6 +902,7 @@
     <g class="plan-hit" data-goto="coaster"><circle class="plan-dot" cx="170" cy="80" r="4" fill="var(--ink-soft)"/><text x="150" y="70" font-size="8" font-family="Inter" fill="var(--ink-soft)" letter-spacing="1">COASTER</text></g>
     <g class="plan-hit" data-goto="circus"><circle class="plan-dot" cx="48" cy="70" r="4" fill="var(--ink-soft)"/><text x="10" y="60" font-size="8" font-family="Inter" fill="var(--ink-soft)" letter-spacing="1">IDEA CIRCUS</text></g>
     <g class="plan-hit" data-goto="dolly"><circle class="plan-dot" cx="132" cy="140" r="4" fill="var(--ink-soft)"/><text x="140" y="143" font-size="8" font-family="Inter" fill="var(--ink-soft)" letter-spacing="1">DOLLY</text></g>
+    <g class="plan-hit" data-goto="graveyard"><circle class="plan-dot" cx="190" cy="112" r="4.8" fill="var(--sage)"/><text x="145" y="105" font-size="7" font-family="Inter" fill="var(--ink-soft)" letter-spacing=".7">SECOND BLOOM</text></g>
     <text x="196" y="156" font-size="7" font-family="Inter" fill="rgba(42,37,32,.4)" letter-spacing="1">POND</text>
   </svg>
   <div class="legend">
@@ -897,6 +921,7 @@
     <button class="plan-hit" data-goto="prizes">Proof</button>
     <button class="plan-hit" data-goto="carousel">Interests</button>
     <button class="plan-hit" data-goto="futureland">Now</button>
+    <button class="plan-hit" data-goto="graveyard">Second Bloom</button>
     <button class="plan-hit" data-goto="dolly">Ask Dolly</button>
     <button class="plan-hit" data-goto="gate">About this demo</button>
   </div>
@@ -924,7 +949,7 @@
       <figcaption class="lb-cap">
         <div class="kicker">The Gallery · exhibition print</div>
         <h3 id="lb-title"></h3>
-        <div class="metarow" style="margin-top:10px"><span id="lb-year"></span><span>anonymous image collection</span></div>
+        <div class="metarow" style="margin-top:10px"><span id="lb-year"></span><span data-copy="photoArchive">personal travel archive</span></div>
         <p id="lb-text"></p>
       </figcaption>
     </div>
@@ -995,7 +1020,8 @@
   const shell={
     welcome:zh?'歡迎來到':'Welcome to', admit:zh?'人生入場券 · Admit One':'Admit One · A Ticket to a Life',
     ownerName:copy.ownerName, printing:zh?'正在印製你的人生入場券…':'Printing your ticket to a life…',
-    dollyFoot:zh?'依訪客身份，選一條更像你的路線':'A route shaped around who is visiting'
+    dollyFoot:zh?'依訪客身份，選一條更像你的路線':'A route shaped around who is visiting',
+    photoArchive:zh?'個人旅行影像檔案':'personal travel archive'
   };
   document.querySelectorAll('[data-copy]').forEach(el=>{const key=el.dataset.copy;el.textContent=copy[key]??shell[key]??el.textContent;});
   document.querySelectorAll('[data-route-label]').forEach(el=>el.textContent=copy.routes?.[el.dataset.routeLabel]||'');
@@ -2663,21 +2689,21 @@ hotspot(dolly,'dolly',tr('問問 Dolly','Ask Dolly'),
   {az:.16,pol:.9,dist:26,tgt:new THREE.Vector3(12,3,25)});
 
 /* ============================================================
-   11 · THE GRAVEYARD — not on the map
+   11 · SECOND BLOOM GARDEN — failure grows into method
    ============================================================ */
-const GRAVES=PC.failures.map(g=>({a:g.title,b:g.meta,c:tr('再次開花','BLOOM AGAIN'),d:g.detail}));
+const GRAVES=PC.failures.map(g=>({...g,a:g.title,b:g.meta,c:tr('再次開花','BLOOM AGAIN'),d:g.detail}));
 const graveyard=new THREE.Group();
 const GY=new THREE.Vector3(48,0,-25);
 graveyard.position.set(GY.x,hAt(GY.x,GY.z),GY.z); world.add(graveyard);
 {
-  // low iron fence, gate ajar
+  // low garden fence, gate ajar
   for(let i=0;i<16;i++){
     const a=(i/16)*Math.PI*2;
     if(a>2.4&&a<3.2) continue; // gap where you walk in
-    const p=new THREE.Mesh(new THREE.CylinderGeometry(.055,.055,1.5,4),M.ironDark);
+    const p=new THREE.Mesh(new THREE.CylinderGeometry(.055,.075,1.5,5),M.woodGreen);
     p.position.set(Math.cos(a)*7.2,.7,Math.sin(a)*7.2); graveyard.add(p);
   }
-  const ring=new THREE.Mesh(new THREE.TorusGeometry(7.2,.045,4,40,5.0),M.ironDark);
+  const ring=new THREE.Mesh(new THREE.TorusGeometry(7.2,.055,5,40,5.0),M.woodGreen);
   ring.rotation.x=Math.PI/2; ring.position.y=1.3; graveyard.add(ring);
   GRAVES.forEach((g,i)=>{
     // rows laid out across the visitor's line of sight
@@ -2765,6 +2791,18 @@ graveyard.position.set(GY.x,hAt(GY.x,GY.z),GY.z); world.add(graveyard);
   // an old tree leaning over the plot
   const t=makeTree('old'); t.position.set(6.2,-.2,-4.4); t.scale.setScalar(1.4);
   t.rotation.z=.1; graveyard.add(t);
+  // a visible flowering arch announces the attraction from the main path
+  const bloomArch=new THREE.Mesh(new THREE.TorusGeometry(2.2,.13,7,28,Math.PI),M.woodGreen);
+  bloomArch.position.set(-4.2,2.35,4.6); bloomArch.rotation.z=Math.PI; bloomArch.rotation.y=.75;
+  graveyard.add(bloomArch);
+  for(let f=0;f<18;f++){
+    const a=(f/17)*Math.PI;
+    const flower=new THREE.Mesh(new THREE.SphereGeometry(.13+(f%3)*.025,7,5),mat(f%2?C.butter:C.red,{map:false}));
+    flower.position.set(-4.2+Math.cos(a)*2.2,2.35+Math.sin(a)*2.2,4.6+.04*Math.sin(f*2.1));
+    graveyard.add(flower);
+  }
+  const pathLamp=emissive(C.butter,1.1,.22,'graveyard',4);
+  pathLamp.position.set(-4.2,4.9,4.6); graveyard.add(pathLamp);
 }
 hotspot(graveyard,'graveyard',tr('第二次開花','Second Bloom'),
   {az:.66,pol:.86,dist:22,tgt:new THREE.Vector3(48,1.6,-25)});
@@ -3800,7 +3838,7 @@ const globeZone=new THREE.Group();
    ------------------------------------------------------------ */
 const BUILDING_NOW=PC.now.items.map((x,i)=>({
   name:x.title,kind:PC.now.title,sign:[tr('海外','GLOBAL'),tr('創作','CREATE'),tr('未來','FUTURE')][i]||'NOW',
-  text:x.text,note:tr('持續建造中。','Still under construction.')
+  text:x.text,next:x.next,note:tr('持續建造中。','Still under construction.')
 }));
 
 const futureland=new THREE.Group();
@@ -3981,7 +4019,7 @@ const futureland=new THREE.Group();
    9d · SKILL ARCADE — capabilities discovered through play
    No skill bars. Machines you could imagine putting a coin in.
    ------------------------------------------------------------ */
-const MACHINES=PC.skills.map((s,i)=>({name:s.name.toUpperCase(),kind:`cabinet no. ${i+1}`,screen:s.name.toUpperCase(),items:s.items,note:'Evidence appears throughout the projects, research and learning archives.'}));
+const MACHINES=PC.skills.map((s,i)=>({name:s.name.toUpperCase(),kind:`cabinet no. ${i+1}`,screen:s.name.toUpperCase(),items:s.items,intro:s.intro,evidence:s.evidence,note:tr('每項能力都必須能在項目中找到證據。','Every capability should be traceable to project evidence.')}));
 
 const arcade=new THREE.Group();
 {
@@ -4857,6 +4895,7 @@ addEventListener('keydown',e=>{
   else if(e.key==='4') focusOn('garden');
   else if(e.key==='5') focusOn('globe');
   else if(e.key==='6') focusOn('gallery');
+  else if(e.key==='7') focusOn('graveyard');
   else if(e.key==='l'||e.key==='L') setLights(!lightsOn,true);
 });
 
@@ -4891,15 +4930,16 @@ function gardenSheet(){
      </button>`).join('');
   openSheet(`
     <div class="pinned">
-      <div class="kicker">Story Garden · ${esc(d.where)}</div>
+      <div class="kicker">${tr('故事花園','Story Garden')} · ${esc(d.where)}</div>
       <h2 class="serif-xl">${esc(d.name)}</h2>
+      ${facilityIntro('garden')}
       <div class="metarow"><span>${esc(d.kind)}</span></div>
       <div class="rule"></div>
       <div class="prose"><p>${esc(d.text)}</p></div>
       <div class="rule"></div>
-      <div class="kicker">Featured notes and methods</div>
+      <div class="kicker">${tr('精選筆記與方法','Featured notes and methods')}</div>
       <div class="rides">${list}</div>
-      <div class="actionrow"><button class="paper-action" data-learning-archive>Open the public Learning archive →</button></div>
+      <div class="actionrow"><button class="paper-action" data-learning-archive>${tr('打開完整閱讀室','Open the full reading room')} →</button></div>
       <button class="back-inline" data-close>← Back to park</button>
     </div>`);
 }
@@ -4917,7 +4957,7 @@ async function learningArchiveSheet(){
         <strong>${esc(item.title)}</strong><span>${esc(item.useCase||item.summary||item.source||item.author||'')}</span>
       </button>`).join('')}</div>
   </section>`).join('');
-  openSheet(`<div class="pinned"><div class="kicker">Story Garden · public archive</div><h2 class="serif-xl">Ways of Thinking</h2><div class="prose"><p>A small anonymous selection of prompts, methods, notes, and readings. Personal learning history is intentionally omitted.</p></div><div class="rule"></div>${body}</div>`);
+  openSheet(`<div class="pinned"><div class="kicker">${tr('故事花園 · 閱讀室','Story Garden · reading room')}</div><h2 class="serif-xl">${tr('我的思考方法','Ways of Thinking')}</h2>${facilityIntro('garden')}<div class="rule"></div>${body}</div>`);
 }
 function learningDetailSheet(kind,index){
   const item=PC.learning[kind]?.[index]; if(!item) return learningArchiveSheet();
@@ -4940,16 +4980,24 @@ function globeSheet(){
     <div class="ticket">
       <div class="stub">
         <div>
-          <div class="kicker">Around the World · Region ${activePlace+1} of ${PLACES.length}</div>
+          <div class="kicker">${tr('世界地球儀','World Globe')} · ${activePlace+1}/${PLACES.length}</div>
           <h2 class="serif-xl">${esc(d.name)}</h2>
         </div>
         <div class="yearstamp">${esc(d.country)}</div>
       </div>
       <div class="body">
-        <div class="prose"><p>${esc(PC.travel.summary)}. The points are intentionally broad and do not represent a personal route.</p></div>
+        ${facilityIntro('globe')}
+        ${d.heroImage?`<figure class="place-hero"><img src="${esc(contentPath(d.heroImage))}" loading="lazy" decoding="async" alt="${esc(`${d.name}: ${d.scene||''}`)}"><figcaption class="place-credit">${esc(d.credit||d.name)}</figcaption></figure>`:''}
+        <div class="metarow"><span>${esc(d.period||'')}</span><span>${esc(d.scene||'')}</span></div>
+        <div class="kicker" style="margin-top:14px">${tr('建議旅行線路','Suggested route')}</div>
+        <div class="route-stops">${(d.route||[]).map((stop,i)=>`${i?'<span class="route-arrow">→</span>':''}<span class="route-stop">${esc(stop)}</span>`).join('')}</div>
+        <div class="detail-grid">
+          ${detailBlock(tr('我的回憶','My memory'),d.memory)}
+          ${detailBlock(tr('這座城市留下的視角','What this place taught me'),d.lens)}
+        </div>
         ${photos.length?`<div class="city-photo">${photos.map(({p,i})=>`<button class="photo-card" data-photo="${i}"><img class="real-thumb" src="${esc(p.thumb)}" loading="lazy" alt="${esc(p.alt)}"><span class="pc-t">${esc(p.title)}</span></button>`).join('')}</div>`:''}
         <div class="rule"></div>
-        <div class="kicker">Perspectives by region</div>
+        <div class="kicker">${tr('切換下一個人生地點','Choose another life location')}</div>
         ${pins}
         <button class="back-inline" data-close>← Back to park</button>
       </div>
@@ -4968,18 +5016,20 @@ function futureSheet(){
     <div class="ticket">
       <div class="stub">
         <div>
-          <div class="kicker">Futureland · recent workbench</div>
+          <div class="kicker">${tr('未來世界 · 施工台','Futureland · workbench')}</div>
           <h2 class="serif-xl">${esc(d.name)}</h2>
         </div>
         <div class="yearstamp">${esc(d.kind.split(' · ')[1]||'NOW')}</div>
       </div>
       <div class="body">
+        ${facilityIntro('futureland')}
         <div class="prose"><p>${esc(d.text)}</p></div>
+        ${d.next?`<div class="detail-grid">${detailBlock(tr('下一個實驗','Next experiment'),d.next)}</div>`:''}
         <div class="rule"></div>
         <div class="metarow"><span>${esc(d.kind)}</span><span>${esc(d.note)}</span></div>
         <span class="stamp">${esc(d.sign)}</span>
         <div class="rule"></div>
-        <div class="kicker">Also on the site</div>
+        <div class="kicker">${tr('其他施工項目','Other work in progress')}</div>
         <div class="rides">${list}</div>
         <button class="back-inline" data-close>← Back to park</button>
       </div>
@@ -4997,15 +5047,18 @@ function arcadeSheet(){
   const items=d.items.map(t=>`<li>${esc(t)}</li>`).join('');
   openSheet(`
     <div class="program">
-      <div class="kicker">Skill Arcade · ${esc(d.kind)}</div>
+      <div class="kicker">${tr('技能街機廳','Skills Arcade')} · ${esc(d.kind)}</div>
       <h2 class="serif-xl">${esc(d.name)}</h2>
+      ${facilityIntro('arcade')}
       <div class="crt">
         <div class="crt-label">${esc(d.screen)}</div>
         <ul class="crt-list">${items}</ul>
       </div>
       <p class="hand">${esc(d.note)}</p>
+      ${d.intro?`<div class="prose"><p>${esc(d.intro)}</p></div>`:''}
+      ${detailList(tr('項目證據','Evidence in projects'),d.evidence)}
       <div class="rule"></div>
-      <div class="kicker">Other cabinets</div>
+      <div class="kicker">${tr('其他技能機台','Other cabinets')}</div>
       <div class="rides">${tabs}</div>
       <button class="back-inline" data-close>← Back to park</button>
     </div>`);
@@ -5016,9 +5069,9 @@ function prizeSheet(){
   const groups=PRIZES.map(p=>`<div class="prize"><div class="kicker">${esc(p.c)}</div><div class="pt">${esc(p.t)}</div><div class="pd">${esc(p.d)}</div></div>`).join('');
   openSheet(`
     <div class="pinned">
-      <div class="kicker">Prize Corner · selected evidence</div>
-      <h2 class="serif-xl">Awards & Outcomes</h2>
-      <div class="prose"><p>Only recorded awards and measurable outcomes are kept on this shelf.</p></div>
+      <div class="kicker">${tr('方法獎品屋 · 精選證據','Proof & Methods · selected evidence')}</div>
+      <h2 class="serif-xl">${tr('可以帶走的方法','Reusable Methods')}</h2>
+      ${facilityIntro('prizes')}
       <div class="rule"></div>
       ${groups}
       <button class="back-inline" data-close>← Back to park</button>
@@ -5030,11 +5083,9 @@ function carouselSheet(){
   const interests=PC.interests.map(([name,note])=>`<div class="metarow"><span>${esc(name)}</span><span>${esc(note)}</span></div>`).join('');
   openSheet(`
     <div class="pinned">
-      <div class="kicker">The Gallopers · runs continuously</div>
-      <h2 class="serif-xl">Things I Keep Coming Back To</h2>
-      <div class="prose">
-        <p>A carousel goes nowhere, which is the point. These are the interests that keep returning through changes of place, work and tools.</p>
-      </div>
+      <div class="kicker">${tr('興趣旋轉木馬 · 持續運轉','Interest Carousel · runs continuously')}</div>
+      <h2 class="serif-xl">${tr('我反覆回到的事情','Things I Keep Coming Back To')}</h2>
+      ${facilityIntro('carousel')}
       <div class="rule"></div>
       ${interests}
       <button class="back-inline" data-close>← Back to park</button>
@@ -5051,9 +5102,9 @@ function gallerySheet(){
     </button>`).join('');
   openSheet(`
     <div class="label-plate">
-      <div class="kicker">The Gallery · ${PHOTOS.length} real photographs</div>
-      <h2 class="serif-xl">The Darkroom</h2>
-      <div class="prose"><p>Image colour is preserved. Identity-bearing photographs are removed, captions and locations are intentionally broad, and no image is tied to a personal itinerary.</p></div>
+      <div class="kicker">${tr('攝影畫廊','Photography Gallery')} · ${PHOTOS.length} ${tr('張真實照片','real photographs')}</div>
+      <h2 class="serif-xl">${tr('暗房與記憶','The Darkroom')}</h2>
+      ${facilityIntro('gallery')}
       <div class="rule"></div>
       <div class="photogrid">${grid}</div>
       <button class="sheet-close" data-close>← Back to Park</button>
@@ -5127,6 +5178,18 @@ const objEl=document.getElementById('sheet-obj');
 let activeCabin=0, activeRide=0, activeTent=0;
 
 function esc(s){ return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function facilityIntro(id){
+  const text=PC.facilityIntro?.[id];
+  return text?`<div class='facility-intro'>${esc(text)}</div>`:'';
+}
+function detailBlock(label,content){
+  if(!content) return '';
+  return `<section class='detail-block'><h4>${esc(label)}</h4><p>${esc(content)}</p></section>`;
+}
+function detailList(label,items){
+  if(!items?.length) return '';
+  return `<section class='detail-block'><h4>${esc(label)}</h4><ul>${items.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></section>`;
+}
 function contentPath(path){
   if(!path) return '';
   return path.replace(/^\.\//,'');
@@ -5301,14 +5364,19 @@ function ferrisSheet(){
     <div class="ticket">
       <div class="stub">
         <div>
-          <div class="kicker">Ferris Wheel of Time · Cabin ${activeCabin+1} of 6</div>
+          <div class="kicker">${tr('人生摩天輪','Ferris Wheel of Time')} · ${activeCabin+1}/6</div>
           <h2 class="serif-xl">${esc(d.title)}</h2>
         </div>
         <div class="yearstamp">${esc(d.year)}</div>
       </div>
       <div class="body">
+        ${facilityIntro('ferris')}
         <div class="metarow"><span>${esc(d.role)}</span><span>${esc(d.kind)}</span></div>
         <div class="prose"><p>${esc(d.text)}</p></div>
+        <div class="detail-grid">
+          ${detailBlock(tr('當時的選擇','The choice'),d.choice)}
+          ${detailBlock(tr('留下的證據','Evidence'),d.evidence)}
+        </div>
         <div class="rule"></div>
         <p class="project-proof">${esc(d.note)}</p>
         <div class="rule"></div>
@@ -5334,20 +5402,27 @@ function coasterSheet(){
   openSheet(`
     <div class="program">
       <div class="head">
-        <div class="kicker">Project Coaster · Anonymous study ${activeRide+1} of ${RIDES.length}</div>
+        <div class="kicker">${tr('項目過山車','Project Coaster')} · ${activeRide+1}/${RIDES.length}</div>
         <h2 class="serif-xl">${esc(r.title)}</h2>
         <div class="metarow" style="margin-top:8px"><span>${esc(r.role)}</span><span>${esc(r.time)}</span></div>
       </div>
       ${cover}
+      ${facilityIntro('coaster')}
       <div class="prose"><p>${esc(r.oneLiner)}</p></div>
+      <div class="detail-grid">
+        ${detailBlock(tr('問題','Challenge'),r.challenge)}
+        ${detailBlock(tr('策略選擇','Strategic decision'),r.decision)}
+        ${detailList(tr('我做了什麼','What I did'),r.actions)}
+        ${detailBlock(tr('帶走的方法','What I learned'),r.learning)}
+      </div>
       <div class="rule"></div>
-      <div class="kicker">What it explores</div><p class="project-proof">${esc(r.outcome)}</p>
+      <div class="kicker">${tr('公開邊界','Public boundary')}</div><p class="project-proof">${esc(r.outcome)}</p>
       <div class="metarow">${(r.tags||[]).map(tag=>`<span>${esc(tag)}</span>`).join('')}</div>
       <div class="actionrow">${projectActions(r)}</div>
       <div class="rule"></div>
-      <div class="kicker" style="margin-bottom:8px">Anonymous studies</div>
+      <div class="kicker" style="margin-bottom:8px">${tr('切換項目','Choose another project')}</div>
       <div class="ridelist">${list}</div>
-      <div class="actionrow"><button class="paper-action" data-project-archive>Open all anonymous studies →</button></div>
+      <div class="actionrow"><button class="paper-action" data-project-archive>${tr('打開全部項目','Open all projects')} →</button></div>
       <button class="sheet-close" data-close>← Back to Park</button>
     </div>`);
 }
@@ -5365,16 +5440,13 @@ async function projectArchiveSheet(){
   await PC.ready;
   if(sheetZone!==requestedZone||focusId!=='coaster') return;
   const projects=PC.projects.items;
-  const groups=['AI','Product','Research','Build'].map(label=>{
-    const items=projects.filter(p=>projectCategory(p)===label);
-    return `<section class="archive-section"><div class="kicker">${label} · ${items.length}</div><div class="archive-grid">${items.map(p=>`
-      <button class="archive-card" data-project="${esc(p.slug)}"><strong>${esc(p.title)}</strong><span>${esc(p.oneLiner)}</span><small>${esc(p.role)} · ${esc(p.time)}</small></button>`).join('')}</div></section>`;
-  }).join('');
-  openSheet(`<div class="program"><div class="kicker">Project Coaster · anonymous selection</div><h2 class="serif-xl">${projects.length} Concept Studies</h2><div class="prose"><p>Composite, non-identifying examples that communicate working methods without presenting a real project history. Names, dates, organizations, links, metrics, and original screenshots are omitted.</p></div><div class="rule"></div>${groups}</div>`);
+  const cards=`<section class="archive-section"><div class="archive-grid">${projects.map(p=>`
+    <button class="archive-card" data-project="${esc(p.slug)}"><strong>${esc(p.title)}</strong><span>${esc(p.oneLiner)}</span><small>${esc(p.role)} · ${esc(p.time)}</small></button>`).join('')}</div></section>`;
+  openSheet(`<div class="program"><div class="kicker">${tr('項目過山車 · 完整軌道','Project Coaster · full track')}</div><h2 class="serif-xl">${projects.length} ${tr('個真實項目','Real Projects')}</h2>${facilityIntro('coaster')}<div class="rule"></div>${cards}</div>`);
 }
 function projectDetailSheet(slug){
   const p=PC.projects.items.find(item=>item.slug===slug); if(!p) return projectArchiveSheet();
-  openSheet(`<div class="program"><button class="paper-action secondary" data-project-archive>← All studies</button><div class="kicker">Anonymous concept · ${esc(projectCategory(p))}</div><h2 class="serif-xl">${esc(p.title)}</h2><div class="metarow"><span>${esc(p.role)}</span><span>${esc(p.time)}</span></div>${p.coverImage?`<img class="project-cover" src="${esc(contentPath(p.coverImage))}" loading="lazy" alt="${esc(`${p.title} anonymous concept cover`)}">`:''}<div class="prose"><p>${esc(p.oneLiner)}</p></div><div class="rule"></div><div class="kicker">What it explores</div><p class="project-proof">${esc(p.outcome)}</p><div class="metarow">${(p.tags||[]).map(tag=>`<span>${esc(tag)}</span>`).join('')}</div><div class="actionrow">${projectActions(p)}</div></div>`);
+  openSheet(`<div class="program"><button class="paper-action secondary" data-project-archive>← ${tr('全部項目','All projects')}</button><div class="kicker">${tr('項目檔案','Project file')} · ${esc(projectCategory(p))}</div><h2 class="serif-xl">${esc(p.title)}</h2><div class="metarow"><span>${esc(p.role)}</span><span>${esc(p.time)}</span></div>${p.coverImage?`<img class="project-cover" src="${esc(contentPath(p.coverImage))}" loading="lazy" alt="${esc(`${p.title} project cover`)}">`:''}${facilityIntro('coaster')}<div class="prose"><p>${esc(p.oneLiner)}</p></div><div class="detail-grid">${detailBlock(tr('問題','Challenge'),p.challenge)}${detailList(tr('行動','Actions'),p.actions)}${detailBlock(tr('策略判斷','Decision'),p.decision)}${detailBlock(tr('方法收穫','Learning'),p.learning)}</div><div class="rule"></div><div class="kicker">${tr('公開邊界','Public boundary')}</div><p class="project-proof">${esc(p.outcome)}</p><div class="metarow">${(p.tags||[]).map(tag=>`<span>${esc(tag)}</span>`).join('')}</div><div class="actionrow">${projectActions(p)}</div></div>`);
 }
 
 /* --- idea circus: a pinned note, handwriting and all --- */
@@ -5386,8 +5458,9 @@ function circusSheet(){
      </button>`).join('');
   openSheet(`
     <div class="pinned">
-      <div class="kicker">Idea Circus · No business case required</div>
+        <div class="kicker">${tr('創意實驗室 · 不需要先有商業理由','Creative Lab · no business case required')}</div>
       <h2 class="serif-xl">${esc(t.name)}</h2>
+      ${facilityIntro('circus')}
       <div class="metarow" style="margin:8px 0 14px"><span>${esc(t.kind)}</span></div>
       <img class="project-cover" src="${esc(t.image)}" loading="lazy" decoding="async" alt="${esc(t.name)}">
       <div class="prose"><p>${esc(t.text)}</p></div>
@@ -5421,11 +5494,13 @@ function gateSheet(){
     <div class="label-plate">
       <div class="kicker">${tr('入口門票','Entrance Ticket')} · ${esc(p.locations.join(' · '))}</div>
       <h2 class="serif-xl">${esc(p.name)}</h2>
+      ${facilityIntro('gate')}
       <div class="metarow"><span>${esc(p.role)}</span><span>${tr('公開版不展示項目數據','No project metrics in this public edition')}</span></div>
       <div class="rule"></div>
       <div class="prose">
         <p><em>${esc(p.intro)}</em></p>
         <p>${esc(p.story)}</p>
+        <p><strong>${esc(p.orientation||'')}</strong></p>
         <p>${tr('摩天輪保存人生轉折，過山車保存代表項目，花園保存文學、研究與思考方法。Dolly 會依你的身份推薦一條路。','The Ferris Wheel keeps turning points, the Coaster keeps selected projects, and the Garden keeps literature, research, and methods. Dolly can shape a route around who you are.')}</p>
       </div>
       <div class="rule"></div>
@@ -5440,15 +5515,16 @@ function gateSheet(){
 
 /* --- graveyard: the easter egg --- */
 function graveSheet(){
-  const items=GRAVES.filter(g=>g.a).map(g=>`<li>${esc(g.a)}<br/>${esc(g.b)}<small>${esc(g.d)}</small></li>`).join('');
+  const items=GRAVES.filter(g=>g.a).map(g=>`<li><strong>${esc(g.a)}</strong><span class="kicker">${esc(g.b)}</span><div class="growth-chain"><span><b>${tr('觸發','Trigger')}</b><br>${esc(g.trigger)}</span><span><b>${tr('錯誤判斷','Mistake')}</b><br>${esc(g.mistake)}</span><span><b>${tr('系統後果','Impact')}</b><br>${esc(g.impact)}</span><span><b>${tr('重新生長','Regrowth')}</b><br>${esc(g.regrowth)}</span></div><small><b>${tr('新規則','New rule')}：</b>${esc(g.rule)}<br>${esc(g.d)}</small></li>`).join('');
   openSheet(`
     <div class="label-plate">
       <div class="kicker">${tr('失敗不是終點','Failure is not the final stop')}</div>
       <h2 class="serif-xl">${tr('第二次開花','Second Bloom Garden')}</h2>
+      ${facilityIntro('graveyard')}
       <div class="prose" style="margin-top:10px">
         <p>${tr('這裡不埋葬失敗。每一次失誤都被改寫成下一輪可以執行的方法：看見系統後果、先調節壓力、對齊後再行動。','Nothing is buried here. Each failure is rewritten into a method for the next round: see systemic consequences, regulate pressure, and align before acting.')}</p>
       </div>
-      <ul class="epitaphs">${items}</ul>
+      <ul class="growth-list">${items}</ul>
       <div class="rule"></div>
       <div class="metarow"><span>${tr('三次真實復盤','Three honest retrospectives')}</span><span>${tr('三種新方法','Three methods that grew back')}</span></div>
       <button class="sheet-close" data-close>← Back to Park</button>
@@ -5543,7 +5619,7 @@ function openDolly(){
   if(!logEl.childElementCount){
     dollySay(late
       ? tr('啊，你好。夜深了，我剛才差點睡著——不過還是可以問我。','Oh—hello. It is late and I was nearly asleep. Ask anyway.')
-      : tr('歡迎來到嬌蠻公主的人生遊樂園。我是 Dolly。先告訴我你以什麼身份來訪，或直接問我關於她的問題。',"Welcome to the Princess's Life Wonderpark. I am Dolly. Tell me who you are visiting as, or ask me about her."));
+      : tr('歡迎來到嬌蠻公主的人生遊樂園。我是 Dolly。先告訴我你以什麼身份來訪，或直接問我關於她的問題。',"Welcome to the Princess's Life Wonderpark. I am Dolly. Tell me who you are visiting as, or ask me about her.")+' '+(PC.facilityIntro?.dolly||''));
     dollyAsks(DOLLY_SCRIPT.root.slice(0,4).map(x=>x.q));
   }
 }
